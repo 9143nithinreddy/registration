@@ -23,4 +23,5 @@ public class User {
        private String password = "2200090107";
        private String phno="1234567890";
        // we cannot give values in this class
+       //its a model class
 }
