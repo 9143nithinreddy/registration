@@ -15,16 +15,32 @@ public class UserService {
 	private UserRepository userrepository;
 	
 	//registration
-	public User registeruser(User user) {
+	public String  registeruser(User user) {
 		if(userrepository.existsByEmail(user.getEmail())) {
 			throw new RuntimeException("Email already exists");
 		}
-		return userrepository.save(user);
+		user.setRole("user");
+		 userrepository.save(user);
+		 return "User registration is successfull";
+		
 	}
 	//getusers
 	public List<User> getAllusers(){
 		return userrepository.findAll();
 	}
 	
+	public void createadmin() {
+		if(!userrepository.existsByUsername("Admin")) {
+			User admin= new User();
+			admin.setUsername("admin");
+			admin.setEmail("admin@gmail.com");
+			admin.setPassword("admin123");
+			admin.setPhno("7013558258");
+			admin.setRole("admin");
+			userrepository.save(admin);
+			System.out.println("admin has been created");
+			
+		}
+	}
 
 }

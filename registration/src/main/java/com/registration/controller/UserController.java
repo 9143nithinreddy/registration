@@ -19,10 +19,15 @@ import com.registration.service.UserService;
 public class UserController {
 	
 	@Autowired
-	private UserService userservice;
+	private final UserService userservice;
+	
+	public  UserController(UserService userservice) {
+		this.userservice=userservice;
+		this.userservice.createadmin();
+	}
 	
 	@PostMapping("/register")
-	public User registeruser(@RequestBody User user) {
+	public String registeruser(@RequestBody User user) {
 		return userservice.registeruser(user);
 	}
 	

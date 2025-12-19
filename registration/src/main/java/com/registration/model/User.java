@@ -27,4 +27,6 @@ public class User {
     private String password;
     @Column(nullable=false)
     private String phno;
+    
+    private String role;
 }
