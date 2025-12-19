@@ -6,4 +6,7 @@ import com.registration.model.User;
 
 public interface UserRepository extends JpaRepository<User,Long>{
 
+	boolean existsByEmail(String getEmail);
+	
+
 }

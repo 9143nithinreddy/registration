@@ -1,5 +1,6 @@
 package com.registration.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,12 +13,18 @@ import lombok.Data;
 @Table(name = "users")
 public class User {
 
-    @Id
+    public static Object getEmail;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @Column(nullable=false)
     private String username;
+    @Column(unique=true,nullable=false)
     private String email;
+    @Column(nullable=false)
     private String password;
+    @Column(nullable=false)
     private String phno;
 }
