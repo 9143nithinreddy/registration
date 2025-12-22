@@ -3,6 +3,7 @@ package com.registration.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.registration.dto.LoginRequest;
 import com.registration.model.User;
 import com.registration.service.UserService;
 
@@ -29,6 +31,12 @@ public class UserController {
 	@PostMapping("/register")
 	public String registeruser(@RequestBody User user) {
 		return userservice.registeruser(user);
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<String> login(@RequestBody LoginRequest request){
+		return ResponseEntity.ok(userservice.login(request));
+		
 	}
 	
 	@GetMapping("/allusers")

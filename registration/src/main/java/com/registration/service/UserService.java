@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.registration.dto.LoginRequest;
 import com.registration.model.User;
 import com.registration.repository.UserRepository;
 
@@ -28,6 +29,22 @@ public class UserService {
 	public List<User> getAllusers(){
 		return userrepository.findAll();
 	}
+	
+	
+	// login
+	public String login(LoginRequest request) {
+
+        User user = userrepository
+                .findByEmail(request.getEmail())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!user.getPassword().equals(request.getPassword())) {
+            throw new RuntimeException("Invalid password");
+        }
+
+        return "Login successful";
+    }
+	
 	
 	public void createadmin() {
 		if(!userrepository.existsByUsername("Admin")) {
