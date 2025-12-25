@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.registration.dto.ApiResponse;
 import com.registration.dto.LoginRequest;
 import com.registration.model.User;
 import com.registration.service.UserService;
@@ -34,7 +35,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody LoginRequest request){
+	public ResponseEntity<ApiResponse> login(@RequestBody LoginRequest request){
 		return ResponseEntity.ok(userservice.login(request));
 		
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.registration.dto.ApiResponse;
 import com.registration.dto.LoginRequest;
 import com.registration.model.User;
 import com.registration.repository.UserRepository;
@@ -23,8 +24,9 @@ public class UserService {
 		user.setRole("user");
 		 userrepository.save(user);
 		 return "User registration is successfull";
-		
 	}
+	
+	
 	//getusers
 	public List<User> getAllusers(){
 		return userrepository.findAll();
@@ -32,7 +34,7 @@ public class UserService {
 	
 	
 	// login
-	public String login(LoginRequest request) {
+	public ApiResponse login(LoginRequest request) {
 
         User user = userrepository
                 .findByEmail(request.getEmail())
@@ -42,7 +44,7 @@ public class UserService {
             throw new RuntimeException("Invalid password");
         }
 
-        return "Login successful";
+        return new ApiResponse(true, "Login successful");
     }
 	
 	
