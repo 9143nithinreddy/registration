@@ -9,12 +9,14 @@ import com.registration.dto.ApiResponse;
 import com.registration.dto.LoginRequest;
 import com.registration.model.User;
 import com.registration.repository.UserRepository;
+import com.registration.util.JwtUtil;
 
 @Service
 public class UserService {
 	
 	@Autowired
 	private UserRepository userrepository;
+	private final JwtUtil jwtUtil = new JwtUtil();
 	
 	//registration
 	public String  registeruser(User user) {
@@ -34,19 +36,19 @@ public class UserService {
 	
 	
 	// login
-	public ApiResponse login(LoginRequest request) {
+	 public String login(LoginRequest request) {
 
-        User user = userrepository
-                .findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+	        User user = userrepository
+	                .findByEmail(request.getEmail())
+	                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (!user.getPassword().equals(request.getPassword())) {
-            throw new RuntimeException("Invalid password");
-        }
+	        if (!user.getPassword().equals(request.getPassword())) {
+	            throw new RuntimeException("Invalid password");
+	        }
 
-        return new ApiResponse(true, "Login successful");
-    }
-	
+	        // ✅ Generate JWT token
+	        return jwtUtil.generateToken(user.getEmail());
+	    }	
 	
 	public void createadmin() {
 		if(!userrepository.existsByUsername("Admin")) {
